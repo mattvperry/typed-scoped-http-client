@@ -1,6 +1,6 @@
 /// <reference path=".\typings\main\ambient\node\index.d.ts" />
 
-declare module "scoped" {
+declare module "scoped-http-client" {
     import { Agent, RequestOptions, ServerResponse } from "http";
 
     type RequestCallback = (cb: (err: any, response: ServerResponse, body: string) => void) => ScopedClient;
