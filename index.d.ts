@@ -6,13 +6,13 @@ declare module "scoped" {
     type RequestCallback = (cb: (err: any, response: ServerResponse, body: string) => void) => ScopedClient;
 
     interface Options extends RequestOptions {
-        encoding: string;
-        httpAgent: Agent|boolean;
-        httpsAgent: Agent|boolean;
-        query: any;
-        pathname: string;
-        slashes: any;
-        hash: string;
+        encoding?: string;
+        httpAgent?: Agent|boolean;
+        httpsAgent?: Agent|boolean;
+        query?: any;
+        pathname?: string;
+        slashes?: any;
+        hash?: string;
     }
 
     class ScopedClient {
