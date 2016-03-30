@@ -18,9 +18,9 @@ declare module "scoped-http-client" {
     class ScopedClient {
         constructor(url: string, options: Options);
         fullPath(p: string): string;
-        scope(callback: Function): ScopedClient;
-        scope(url: string, callback: Function): ScopedClient;
-        scope(url: string, options: Options, callback: Function): ScopedClient;
+        scope(options: Options, callback?: Function): ScopedClient;
+        scope(url: string, callback?: Function): ScopedClient;
+        scope(url: string, options: Options, callback?: Function): ScopedClient;
         join(suffix: string): string;
         path(p: string): ScopedClient;
         query(key: any, value?: any): ScopedClient;
@@ -67,5 +67,6 @@ declare module "scoped-http-client" {
 
     }
 
-    export function create(url: string, options: Options): ScopedClient;
+    export function create(options: Options): ScopedClient;
+    export function create(url?: string, options?: Options): ScopedClient;
 }
