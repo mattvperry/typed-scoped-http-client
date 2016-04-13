@@ -1,11 +1,11 @@
 /// <reference path=".\typings\main\ambient\node\index.d.ts" />
 
 declare module "scoped-http-client" {
-    import { Agent, RequestOptions, ServerResponse, ClientRequest } from "http";
+    import { Agent, RequestOptions, IncomingMessage, ClientRequest } from "http";
 
     type ScopeCallback = (scoped: ScopedClient) => void;
     type RequestCallback = (err: any, request: ClientRequest) => void;
-    type ResponseCallback = (cb?: (err: any, response: ServerResponse, body: string) => void) => ScopedClient;
+    type ResponseCallback = (cb?: (err: any, response: IncomingMessage, body: string) => void) => ScopedClient;
 
     interface Options extends RequestOptions {
         encoding?: string;
