@@ -1,9 +1,11 @@
 /// <reference path=".\typings\main\ambient\node\index.d.ts" />
 
 declare module "scoped-http-client" {
-    import { Agent, RequestOptions, ServerResponse } from "http";
+    import { Agent, RequestOptions, ServerResponse, ServerRequest } from "http";
 
-    type RequestCallback = (cb: (err: any, response: ServerResponse, body: string) => void) => ScopedClient;
+    type ScopeCallback = (scoped: ScopedClient) => void;
+    type RequestCallback = (err: any, request: ServerRequest) => void;
+    type ResponseCallback = (cb?: (err: any, response: ServerResponse, body: string) => void) => ScopedClient;
 
     interface Options extends RequestOptions {
         encoding?: string;
@@ -18,9 +20,9 @@ declare module "scoped-http-client" {
     class ScopedClient {
         constructor(url: string, options: Options);
         fullPath(p: string): string;
-        scope(options: Options, callback?: Function): ScopedClient;
-        scope(url: string, callback?: Function): ScopedClient;
-        scope(url: string, options: Options, callback?: Function): ScopedClient;
+        scope(options: Options, callback?: ScopeCallback): ScopedClient;
+        scope(url: string, callback?: ScopeCallback): ScopedClient;
+        scope(url: string, options: Options, callback?: ScopeCallback): ScopedClient;
         join(suffix: string): string;
         path(p: string): ScopedClient;
         query(key: any, value?: any): ScopedClient;
@@ -33,37 +35,37 @@ declare module "scoped-http-client" {
         header(name: string, value: string): ScopedClient;
         headers(h: any): ScopedClient;
 
-        request(method: string): RequestCallback;
-        request(method: string, callback: Function): RequestCallback;
-        request(method: string, reqBody: string, callback: Function): RequestCallback;
+        request(method: string): ResponseCallback;
+        request(method: string, callback: RequestCallback): ResponseCallback;
+        request(method: string, reqBody: string, callback: RequestCallback): ResponseCallback;
 
-        get(): RequestCallback;
-        get(callback: Function): RequestCallback;
-        get(reqBody: string, callback: Function): RequestCallback;
+        get(): ResponseCallback;
+        get(callback: RequestCallback): ResponseCallback;
+        get(reqBody: string, callback: RequestCallback): ResponseCallback;
 
-        post(): RequestCallback;
-        post(callback: Function): RequestCallback;
-        post(reqBody: string, callback: Function): RequestCallback;
+        post(): ResponseCallback;
+        post(callback: RequestCallback): ResponseCallback;
+        post(reqBody: string, callback: RequestCallback): ResponseCallback;
 
-        patch(): RequestCallback;
-        patch(callback: Function): RequestCallback;
-        patch(reqBody: string, callback: Function): RequestCallback;
+        patch(): ResponseCallback;
+        patch(callback: RequestCallback): ResponseCallback;
+        patch(reqBody: string, callback: RequestCallback): ResponseCallback;
 
-        put(): RequestCallback;
-        put(callback: Function): RequestCallback;
-        put(reqBody: string, callback: Function): RequestCallback;
+        put(): ResponseCallback;
+        put(callback: RequestCallback): ResponseCallback;
+        put(reqBody: string, callback: RequestCallback): ResponseCallback;
 
-        delete(): RequestCallback;
-        delete(callback: Function): RequestCallback;
-        delete(reqBody: string, callback: Function): RequestCallback;
+        delete(): ResponseCallback;
+        delete(callback: RequestCallback): ResponseCallback;
+        delete(reqBody: string, callback: RequestCallback): ResponseCallback;
 
-        del(): RequestCallback;
-        del(callback: Function): RequestCallback;
-        del(reqBody: string, callback: Function): RequestCallback;
+        del(): ResponseCallback;
+        del(callback: RequestCallback): ResponseCallback;
+        del(reqBody: string, callback: RequestCallback): ResponseCallback;
 
-        head(): RequestCallback;
-        head(callback: Function): RequestCallback;
-        head(reqBody: string, callback: Function): RequestCallback;
+        head(): ResponseCallback;
+        head(callback: RequestCallback): ResponseCallback;
+        head(reqBody: string, callback: RequestCallback): ResponseCallback;
 
     }
 
